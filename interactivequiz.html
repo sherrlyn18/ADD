@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="interactivequiz.css">
+    <title>Interactive Quiz</title>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Interactive Quiz</h1>
+        <form id="quiz-form">
+            <div class="question">
+                <p>1. What is the capital of France?</p>
+                <label>
+                    <input type="radio" name="q1" value="a"> a) London
+                </label>
+                <label>
+                    <input type="radio" name="q1" value="b"> b) Paris
+                </label>
+                <label>
+                    <input type="radio" name="q1" value="c"> c) Berlin
+                </label>
+            </div>
+
+            <div class="question">
+                <p>2. What is the largest planet in our solar system?</p>
+                <label>
+                    <input type="radio" name="q2" value="a"> a) Venus
+                </label>
+                <label>
+                    <input type="radio" name="q2" value="b"> b) Mars
+                </label>
+                <label>
+                    <input type="radio" name="q2" value="c"> c) Jupiter
+                </label>
+            </div>
+
+            <!-- Add more questions as needed -->
+
+            <button type="button" onclick="submitQuiz()">Submit</button>
+        </form>
+
+        <div id="results-container" class="hidden">
+            <h2>Quiz Results</h2>
+            <p id="results"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+<script>
+    function submitQuiz() {
+        // Retrieve user's answers
+        var answers = document.getElementById("quiz-form").elements;
+        var resultText = "";
+    
+        // Check answers
+        for (var i = 0; i < answers.length; i++) {
+            if (answers[i].type === "radio" && answers[i].checked) {
+                resultText += "Question " + answers[i].name.slice(1) + ": " + answers[i].value.toUpperCase() + "<br>";
+            }
+        }
+    
+        // Display results
+        document.getElementById("results").innerHTML = resultText;
+        document.getElementById("results-container").classList.remove("hidden");
+    }
+    
+</script>
+</html>

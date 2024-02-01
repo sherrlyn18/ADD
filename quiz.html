@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz with Score</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+        .quiz-container {
+            max-width: 600px;
+            margin: auto;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        button {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        #score {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>Quiz Time!</h1>
+    <div id="question-container" class="question"></div>
+    <div id="options-container" class="options"></div>
+    <button onclick="nextQuestion()">Next</button>
+    <div id="score">Score: <span id="score-value">0</span></div>
+</div>
+
+<script>
+    const questions = [
+        {
+            question: 'What is the capital of France?',
+            options: ['Paris', 'Berlin', 'London', 'Madrid'],
+            correctAnswer: 'Paris'
+        },
+        {
+            question: 'Which planet is known as the Red Planet?',
+            options: ['Mars', 'Venus', 'Jupiter', 'Saturn'],
+            correctAnswer: 'Mars'
+        },
+        {
+            question: 'What is the largest mammal?',
+            options: ['Elephant', 'Blue Whale', 'Giraffe', 'Hippopotamus'],
+            correctAnswer: 'Blue Whale'
+        }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function displayQuestion() {
+        const questionContainer = document.getElementById('question-container');
+        const optionsContainer = document.getElementById('options-container');
+        const scoreValue = document.getElementById('score-value');
+
+        if (currentQuestion < questions.length) {
+            questionContainer.textContent = questions[currentQuestion].question;
+            optionsContainer.innerHTML = '';
+
+            questions[currentQuestion].options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.onclick = () => checkAnswer(index);
+                optionsContainer.appendChild(button);
+            });
+
+            scoreValue.textContent = score;
+        } else {
+            questionContainer.textContent = 'Quiz completed!';
+            optionsContainer.innerHTML = '';
+            document.getElementById('score').style.display = 'none';
+        }
+    }
+
+    function checkAnswer(index) {
+        if (questions[currentQuestion].options[index] === questions[currentQuestion].correctAnswer) {
+            score++;
+        }
+        currentQuestion++;
+        displayQuestion();
+    }
+
+    function nextQuestion() {
+        if (currentQuestion < questions.length) {
+            currentQuestion++;
+            displayQuestion();
+        }
+    }
+
+    displayQuestion();
+</script>
+
+</body>
+</html>
